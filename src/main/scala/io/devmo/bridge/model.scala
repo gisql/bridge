@@ -42,6 +42,7 @@ case class Card private(rank: Rank, suit: BidSuit) {
 }
 
 object Deck {
+
   import Rank.rankOrder._
 
   val suits: Vector[BidSuit] = Vector(Clubs, Diamonds, Hearts, Spades)
@@ -67,6 +68,17 @@ object Player {
 sealed trait Bid
 case object Pass extends Bid
 case class ValueBid(n: Int, suit: BidSuit) extends Bid
+
+object Bid {
+  implicit final class IntBid(val self: Int) extends AnyVal {
+    def suited(suit: BidSuit): Bid = ValueBid(self, suit)
+    def ♣ : Bid = suited(Clubs)
+    def ♦ : Bid = suited(Diamonds)
+    def ♥ : Bid = suited(Hearts)
+    def ♠ : Bid = suited(Spades)
+    def NT: Bid = suited(NoTrump)
+  }
+}
 
 object BidSystem {
   case class Bidding(dealer: Player, bids: Vector[Bid])

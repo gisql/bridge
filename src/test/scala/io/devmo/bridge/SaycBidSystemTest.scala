@@ -140,5 +140,8 @@ class SaycBidSystemTest extends WordSpec with GeneratorDrivenPropertyChecks with
         SaycBidSystem.bid(hand, bidding) shouldBe Pass
       }
     }
+    "respond with 1 ♦/♥/♠ with HCP 6-9, 4+ in suit, no longer or equal lower suit" in {
+
+    }
   }
 }
